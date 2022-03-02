@@ -8,7 +8,7 @@ namespace TestDB_CodeFerst
         static string addRead = "add";
         static string exit = "exit";
 
-        static void Main(string[] args)
+        static void Main(string[] args)  // ссылка на  гит  https://github.com/frakiec89/TestDB_CodeFerst
         {
             Console.WriteLine("Программа -- мои  записки --- ");
 
