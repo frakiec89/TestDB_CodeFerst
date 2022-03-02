@@ -23,3 +23,6 @@ namespace TestDB_CodeFerst.DB
         public DbSet<Record> Records { get; set; }
     }
 }
+
+//add-migration
+//PM> update-database
