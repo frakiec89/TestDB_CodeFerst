@@ -26,6 +26,7 @@ namespace TestDB_CodeFerst
                     default:  Console.WriteLine("не корректная команда");
                         break;
                 }
+                Console.WriteLine();
             }
         }
 
@@ -39,7 +40,6 @@ namespace TestDB_CodeFerst
             {
                 RecordService.AddRecord(content, status);
                 Console.WriteLine("Запись добавлена - ура");
-                Console.WriteLine();
             }
             catch (Exception ex)
             {
@@ -66,7 +66,6 @@ namespace TestDB_CodeFerst
             try
             {
                 RecordService.GetRecord().ForEach(x => Console.WriteLine(x));
-                Console.WriteLine();
             }
             catch (Exception ex)
             {
