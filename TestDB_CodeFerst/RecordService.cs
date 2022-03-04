@@ -65,6 +65,10 @@ namespace TestDB_CodeFerst
             }
         }
 
+        /// <summary>
+        /// удаление  записей - навсегда
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         internal static void DeleteAtAllForever()
         {
             try
@@ -72,6 +76,21 @@ namespace TestDB_CodeFerst
                 using DB.MsSqlContext db = new DB.MsSqlContext();
 
                 db.Records.RemoveRange(db.Records);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        internal static void RemoveRecord(int  id)
+        {
+            try
+            {
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+                var r = db.Records.Single(x=>x.RecordId == id);
+                r.IsDeleted = true;
                 db.SaveChanges();
             }
             catch (Exception ex)
