@@ -89,6 +89,12 @@ namespace TestDB_CodeFerst
             try
             {
                 using DB.MsSqlContext db = new DB.MsSqlContext();
+
+                if (db.Records.Any(x=>x.RecordId==id) == false)
+                {
+                    throw new Exception("Запись не найдена");
+                }
+
                 var r = db.Records.Single(x=>x.RecordId == id);
                 r.IsDeleted = true;
                 db.SaveChanges();
