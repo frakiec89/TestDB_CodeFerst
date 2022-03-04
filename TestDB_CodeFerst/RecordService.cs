@@ -37,6 +37,21 @@ namespace TestDB_CodeFerst
             }
         }
 
+        internal static List<string> GetRecord(string status)
+        {
+            try
+            {
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+                List<string> rez = new List<string>();
+                db.Records.Where(x => x.IsDeleted == false && x.Status.ToLower() == status.ToLower()).ToList().ForEach(r => rez.Add($"id-{r.RecordId}. {r.Content},  {r.Status}, {r.DateRecord}"));
+                return rez;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         internal static void AllRemove()
         {
             try
@@ -83,6 +98,23 @@ namespace TestDB_CodeFerst
                 throw new Exception(ex.Message);
             }
         }
+
+
+        public static List<string > GetStatus ()
+        {
+            try
+            {
+                List<string> list = new List<string>();
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+                return  db.Records.Select(x => x.Status).Distinct().OrderBy(s=>s).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
 
         internal static void RemoveRecord(int  id)
         {
