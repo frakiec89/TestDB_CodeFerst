@@ -65,5 +65,20 @@ namespace TestDB_CodeFerst
             }
         }
 
+        internal static void DeleteAtAllForever()
+        {
+            try
+            {
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+
+                db.Records.RemoveRange(db.Records);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

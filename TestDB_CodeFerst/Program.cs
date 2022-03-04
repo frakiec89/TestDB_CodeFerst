@@ -9,6 +9,7 @@ namespace TestDB_CodeFerst
         static string exit = "exit";
         static string AllRemove = "all-dell";
         static string AllReplace = "all-replace";
+        static string AllRemoveForerer = "all-dell-forever";
 
         static void Main(string[] args)  // ссылка на  гит  https://github.com/frakiec89/TestDB_CodeFerst
         {
@@ -21,6 +22,7 @@ namespace TestDB_CodeFerst
                 Console.WriteLine($"для того что  бы  выйти из программы введите \"{exit}\"");
                 Console.WriteLine($"для того что  бы  удалить  все записи введите \"{AllRemove}\"");
                 Console.WriteLine($"для того что  бы  вернуть  все записи введите \"{AllReplace}\"");
+                Console.WriteLine($"для того что  бы  удалить все записи навсегда введите \"{AllRemoveForerer}\"");
 
                 switch (Console.ReadLine().ToLower().TrimStart().TrimEnd())
                 {   
@@ -29,12 +31,34 @@ namespace TestDB_CodeFerst
                     case "exit":; return;
                     case "all-dell": AllDell(); break;
                     case "all-replace": AllReplaceMetod(); break;
+                    case "all-dell-forever": AllReplaceMetodForever(); break;
 
 
                     default:  Console.WriteLine("не корректная команда");
                         break;
                 }
                 Console.WriteLine();
+            }
+        }
+
+        private static void AllReplaceMetodForever()
+        {
+            Console.WriteLine("Удаление  всех записей - Вы уверены (yes/no)");
+            try
+            {
+                if(Console.ReadLine().ToLower().TrimStart().TrimEnd() == "yes" )
+                {
+                    RecordService.DeleteAtAllForever();
+                    Console.WriteLine("Все записи  удалены (  , серьезно все ");
+                }
+                else
+                {
+                    Console.WriteLine("мы рады что  вы передумали");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -109,3 +133,10 @@ namespace TestDB_CodeFerst
         }
     }
 }
+
+
+
+//https://github.com/frakiec89/TestDB_CodeFerst
+
+//Add-migration
+//update-database
