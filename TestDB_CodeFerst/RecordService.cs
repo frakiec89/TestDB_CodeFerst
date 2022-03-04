@@ -12,7 +12,7 @@ namespace TestDB_CodeFerst
             {
                 using  DB.MsSqlContext db = new DB.MsSqlContext();
                 db.Records.Add( new DB.Record { Content =content,
-                Status = status, DateRecord = DateTime.Now,
+                Status = status, DateRecord = DateTime.Now
                 });
                 db.SaveChanges();
             }
@@ -28,7 +28,7 @@ namespace TestDB_CodeFerst
             {
                 using DB.MsSqlContext db = new DB.MsSqlContext();
                 List<string> rez = new List<string>();
-                db.Records.ToList().ForEach(r => rez.Add($"{r.Content},  {r.Status}, {r.DateRecord}"));
+                db.Records.Where(x=>x.IsDeleted==false).ToList().ForEach(r => rez.Add($"id-{r.RecordId}. {r.Content},  {r.Status}, {r.DateRecord}"));
                 return rez;
             }
             catch (Exception ex)
@@ -36,5 +36,34 @@ namespace TestDB_CodeFerst
                 throw new Exception(ex.Message);
             }
         }
+
+        internal static void AllRemove()
+        {
+            try
+            {
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+                db.Records.Where(x => x.IsDeleted == false).ToList().ForEach(x => x.IsDeleted= true);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        internal static void AllReplace()
+        {
+            try
+            {
+                using DB.MsSqlContext db = new DB.MsSqlContext();
+                db.Records.Where(x => x.IsDeleted == true).ToList().ForEach(x => x.IsDeleted = false);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
